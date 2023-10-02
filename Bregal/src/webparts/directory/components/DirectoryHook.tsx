@@ -27,6 +27,10 @@ const slice: any = require('lodash/slice');
 const filter: any = require('lodash/filter');
 const wrapStackTokens: IStackTokens = { childrenGap: 30 };
 
+let jobTitles = [];
+let locations = [];
+let departments = [];
+
 const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
 
     let _services: ISPServices = null;
@@ -73,9 +77,9 @@ const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
         setPagedItems(filItems);
     };
 
-    const jobTitles = [];
-    const locations = [];
-    const departments = [];
+    // const jobTitles = [];
+    // const locations = [];
+    // const departments = [];
 
     state.users && state.users.length > 0
         ? state.users.map((user: any) => {
@@ -147,6 +151,9 @@ const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
                 return (
                     <div>
                         <Link onClick={(item) => {
+                            departments = [];
+                            locations = [];
+                            jobTitles = [];
                             let selectedItemText = item.target["innerText"];
                             setstate({ ...state, searchText: "", isLoading: true });
                             setdepartmentKey(selectedItemText);
@@ -164,6 +171,9 @@ const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
                 return (
                     <div>
                         <Link onClick={(item) => {
+                            departments = [];
+                            locations = [];
+                            jobTitles = [];
                             let selectedItemText = item.target["innerText"];
                             setstate({ ...state, searchText: "", isLoading: true });
                             setjobTitleKey(selectedItemText);
@@ -183,6 +193,9 @@ const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
                     return (
                         <div>
                             <Link onClick={(item) => {
+                                departments = [];
+                                locations = [];
+                                jobTitles = [];
                                 let selectedItemText = item.target["innerText"];
                                 setstate({ ...state, searchText: "", isLoading: true });
                                 setlocationKey(selectedItemText);
@@ -560,7 +573,7 @@ const DirectoryHook: React.FC<IDirectoryProps> = (props) => {
                         </div>
                     ) : (
                         <>
-                            {!pagedItems || pagedItems.length == 0 ? (
+                            { alphaKey.toLocaleLowerCase() != "all" && (!pagedItems || pagedItems.length == 0) ? (
                                 <div className={styles.noUsers} style={{ paddingLeft: '20%' }}>
                                     <Icon
                                         iconName={"ProfileSearch"}
